@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">GazaLink</string>
+    <string name="accessibility_desc">خدمة التحكم عن بُعد لمساعدة العائلة في غزة</string>
+</resources>

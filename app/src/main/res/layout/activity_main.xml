@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:gravity="center_horizontal"
+    android:background="#F5F5F5">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GazaLink - رابط العائلة"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#1B5E20"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="الحالة: غير متصل"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:background="#E0E0E0"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"/>
+
+    <EditText
+        android:id="@+id/roomInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="أدخل الرمز العائلي (مثال: gaza101)"
+        android:text="gaza_link_2026"
+        android:padding="14dp"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="15dp"/>
+
+    <Button
+        android:id="@+id/btnEnableAccess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1. تفعيل إذن التحكم (إمكانية الوصول)"
+        android:backgroundTint="#E65100"
+        android:textColor="#FFFFFF"
+        android:padding="14dp"
+        android:layout_marginBottom="12dp"/>
+
+    <Button
+        android:id="@+id/btnStartService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2. بدء الاتصال الدائم باللابتوب"
+        android:backgroundTint="#2E7D32"
+        android:textColor="#FFFFFF"
+        android:padding="14dp"
+        android:layout_marginBottom="20dp"/>
+
+    <Button
+        android:id="@+id/btnIamSafe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="✅ إرسال طمأنة فورية (أنا بخير)"
+        android:backgroundTint="#1565C0"
+        android:textColor="#FFFFFF"
+        android:padding="18dp"
+        android:textSize="18sp"/>
+
+</LinearLayout>
