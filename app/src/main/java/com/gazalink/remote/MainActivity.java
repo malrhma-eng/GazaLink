@@ -23,47 +23,48 @@ public class MainActivity extends AppCompatActivity {
         EditText roomInput = findViewById(R.id.roomInput);
         TextView statusText = findViewById(R.id.statusText);
         Button btnEnableAccess = findViewById(R.id.btnEnableAccess);
-        Button btnStartService = findViewById(R.id.btnStartService);
-        Button btnIamSafe = findViewById(R.id.btnIamSafe);
+        Button btnStart = findViewById(R.id.btnStart);
+        Button btnImOk = findViewById(R.id.btnImOk);
 
         SharedPreferences prefs = getSharedPreferences("GazaLinkPrefs", MODE_PRIVATE);
-        roomInput.setText(prefs.getString("room_id", "gaza_link_2026"));
+        roomInput.setText(prefs.getString("room", "gaza-family-2026"));
 
-        // طلب صلاحيات الموقع والإشعارات
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             ActivityCompat.requestPermissions(this, new String[]{
-                Manifest.permission.POST_NOTIFICATIONS,
-                Manifest.permission.ACCESS_FINE_LOCATION
+                    Manifest.permission.POST_NOTIFICATIONS,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
             }, 1);
         } else {
             ActivityCompat.requestPermissions(this, new String[]{
-                Manifest.permission.ACCESS_FINE_LOCATION
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
             }, 1);
         }
 
         btnEnableAccess.setOnClickListener(v -> {
-            Toast.makeText(this, "ابحث عن GazaLink وقم بتفعيله", Toast.LENGTH_LONG).show();
             startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+            Toast.makeText(this, "ابحث عن GazaLink وقم بتفعيله", Toast.LENGTH_LONG).show();
         });
 
-        btnStartService.setOnClickListener(v -> {
+        btnStart.setOnClickListener(v -> {
             String room = roomInput.getText().toString().trim();
-            if (room.isEmpty()) room = "gaza_link_2026";
-            prefs.edit().putString("room_id", room).apply();
+            if (room.isEmpty()) return;
+            prefs.edit().putString("room", room).apply();
 
             Intent serviceIntent = new Intent(this, MqttBackgroundService.class);
+            serviceIntent.putExtra("room", room);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 startForegroundService(serviceIntent);
             } else {
                 startService(serviceIntent);
             }
-            statusText.setText("الحالة: يعمل في الخلفية (غرفة: " + room + ")");
-            Toast.makeText(this, "تم تشغيل الاتصال الدائم", Toast.LENGTH_SHORT).show();
+            statusText.setText("الحالة: 🟢 الخدمة تعمل في الخلفية");
         });
 
-        btnIamSafe.setOnClickListener(v -> {
-            MqttBackgroundService.sendToPC("{"type":"MSG","text":"✅ الوالد ضغط زر: أنا بخير والحمد لله"}");
-            Toast.makeText(this, "تم إرسال الطمأنة للابتوب!", Toast.LENGTH_SHORT).show();
+        btnImOk.setOnClickListener(v -> {
+            MqttBackgroundService.sendToPC("{\"type\":\"MSG\",\"text\":\"✅ الوالد ضغط زر: أنا بخير والحمد لله\"}");
+            Toast.makeText(this, "تم إرسال رسالة الطمأنة", Toast.LENGTH_SHORT).show();
         });
     }
 }
